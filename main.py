@@ -51,9 +51,9 @@ class HikingRoute(Resource):
             for location in locations:
                 geopoints.append(self.get_geocode(location.strip()))
             if length:
-                length = length.text[2:]
+                length = length.text[2:].strip()
             if time_need:
-                time_need = time_need.text[2:]
+                time_need = time_need.text[2:].strip()
             star = trail.find('div', {'class': 'star'}).find('svg', {'class': 'star_new_1'})
             if star:
                 default = 5
