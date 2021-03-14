@@ -51,9 +51,9 @@ class HikingRoute(Resource):
             for location in locations:
                 geopoints.append(self.get_geocode(location.strip()))
             if length:
-                length = length.text
+                length = length.text[2:]
             if time_need:
-                time_need = time_need.text
+                time_need = time_need.text[2:]
             star = trail.find('div', {'class': 'star'}).find('svg', {'class': 'star_new_1'})
             if star:
                 default = 5
@@ -76,7 +76,8 @@ class HikingRoute(Resource):
     def get(self):
         self.concurrent()
         return make_response(jsonify({
-            'result': self.response
+            'result': self.response,
+            'status': 'OK',
         }), 200)
 
 
