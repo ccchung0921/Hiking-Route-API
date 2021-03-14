@@ -26,8 +26,8 @@ class HikingRoute(Resource):
         sauce = urllib.request.urlopen(self.base_url2).read()
         soup = bs.BeautifulSoup(sauce, 'html.parser')
         routes = soup.find_all('div', {'class': 'travel', 'style': 'clear:both'})
-        for route in routes:
-            route_link = route.find('a')['href']
+        for route in routes[:-1]:
+            route_link = route.find_all('a')[1]['href']
             self.fetch_link.append(route_link)
 
     def get_geocode(self,place):
@@ -49,7 +49,8 @@ class HikingRoute(Resource):
             route = trail.find('div', {'class': 'route'})
             locations = route.text.split("›")
             for location in locations:
-                geopoints.append(self.get_geocode(location.strip()))
+                if location.strip() != "（原路折返）".strip():
+                    geopoints.append(self.get_geocode(location.strip()))
             if length:
                 length = length.text[2:].strip()
             if time_need:
