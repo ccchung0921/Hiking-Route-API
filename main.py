@@ -45,7 +45,7 @@ class HikingRoute(Resource):
         trail = soup.find('div', {'class': 'trailcontent'})
         name = trail.find('div', {'class': 'banner'}).find('img')['alt']
         imgSrc = self.base_url3 + trail.find('div', {'class': 'banner'}).find('img')['src']
-        if name[:2] != '梅窩':
+        if name[:2] != '梅窩' and name[:2] != '南涌':
             time_need = trail.find_all('div', {'class': 'info'})[1]
             length = trail.find_all('div', {'class': 'info'})[2]
             route = trail.find('div', {'class': 'route'})
