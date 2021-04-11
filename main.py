@@ -18,7 +18,7 @@ class HikingRoute(Resource):
         self.base_url3 = "https://www.oasistrek.com/"
         self.fetch_link = []
         self.fetch()
-        self.api_key = 'AIzaSyCdXWm3q1aKCiuTuZYBMvcefJWG11aWcHY'
+        self.api_key = 'your_API_Key'
         self.google_url = 'https://maps.googleapis.com/maps/api/geocode/json?address='
         self.response = []
 
