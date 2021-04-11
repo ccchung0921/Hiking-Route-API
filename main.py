@@ -43,6 +43,7 @@ class HikingRoute(Resource):
         soup = bs.BeautifulSoup(sauce, 'html.parser')
         trail = soup.find('div', {'class': 'trailcontent'})
         name = trail.find('div', {'class': 'banner'}).find('img')['alt']
+        imgSrc = self.base_url3 + trail.find('div', {'class': 'banner'}).find('img')['src']
         if name[:2] != '梅窩':
             time_need = trail.find_all('div', {'class': 'info'})[1]
             length = trail.find_all('div', {'class': 'info'})[2]
@@ -61,11 +62,14 @@ class HikingRoute(Resource):
                 difficulty = default - len(star.find_all('use', {'class': 'star--empty'}))
             self.response.append({
                 "name": name,
+                "img": imgSrc,
                 "difficulty": difficulty,
                 "length": length,
                 "time": time_need,
                 "geopoints": geopoints
             })
+
+
 
     def concurrent(self):
         timer1 = time.perf_counter()
@@ -73,6 +77,7 @@ class HikingRoute(Resource):
             executor.map(self.get_routes, self.fetch_link)
         timer2 = time.perf_counter()
         print(f"process finished in {timer2-timer1} secs")
+
 
     def get(self):
         self.concurrent()
