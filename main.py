@@ -10,7 +10,6 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
-
 class HikingRoute(Resource):
 
     def __init__(self):
